@@ -3,7 +3,7 @@ import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-const Table = () => {
+const Table = ({ rows, deleteRow }) => {
   return (
     <Wrapper>
       <table>
@@ -16,19 +16,28 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>React</td>
-            <td>Finish useContext next</td>
-            <td>
-              <span className="label label-finished">Finished</span>
-            </td>
-            <td>
-              <span className="actions">
-                <DeleteIcon className="delete-btn" />
-                <EditIcon />
-              </span>
-            </td>
-          </tr>
+          {rows.map((row, index) => {
+            const { task, description, status } = row;
+            const statusText = status.charAt(0).toUpperCase() + status.slice(1);
+            return (
+              <tr key={index}>
+                <td>{task}</td>
+                <td>{description}</td>
+                <td>
+                  <span className={`label label-${status}`}>{statusText}</span>
+                </td>
+                <td>
+                  <span className="actions">
+                    <DeleteIcon
+                      className="delete-btn"
+                      onClick={() => deleteRow(index)}
+                    />
+                    <EditIcon />
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </Wrapper>
@@ -86,7 +95,7 @@ const Wrapper = styled.div`
   }
 
   .label-pending {
-    background-color: yellow;
+    background-color: #7b7b05;
   }
 
   .label-quit {
