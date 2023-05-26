@@ -89,7 +89,7 @@ const Wrapper = styled.div`
     background-color: yellow;
   }
 
-  .label-postpone {
+  .label-quit {
     background-color: #cc0101;
   }
 
